@@ -1,9 +1,14 @@
 version: 2
-jobs:
-  build:
+
+executors:
+  smartnats-executor:
     machine:
       image: ubuntu-1604:201903-01
     working_directory: ~/app
+
+jobs:
+  build:
+    executor: smartnats-executor
     steps:
       - checkout
 
@@ -30,16 +35,14 @@ jobs:
           paths:
             - index.js
   deploy:
-    machine:
-        image: ubuntu-1604:201903-01
-    working_directory: ~/app
+    executor: smartnats-executor
     steps:
       - attach_workspace:
           at: ~/app/images
       - run:
           name: List
           command: |
-            ls .
+            ls ./images
 
 workflows:
   version: 2
