@@ -26,7 +26,7 @@ jobs:
       - run: node ./index.js
 
       - persist_to_workspace:
-          root: .
+          root: ~/app
           paths:
             - index.js
   deploy:
@@ -34,6 +34,8 @@ jobs:
         image: ubuntu-1604:201903-01
     working_directory: ~/app
     steps:
+      - attach_workspace:
+          at: ~/app/images
       - run:
           name: List
           command: |
