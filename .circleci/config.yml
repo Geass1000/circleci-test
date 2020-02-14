@@ -47,7 +47,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            scp ./images/index.js $SSH_USER@$SSH_HOST:~/images/index.js
+            scp -r ./images $SSH_USER@$SSH_HOST:~/images
 
 workflows:
   version: 2
