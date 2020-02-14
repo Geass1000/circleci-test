@@ -8,20 +8,20 @@ jobs:
       - checkout
 
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
       - run: npm install
 
       - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - add_ssh_keys:
-        fingerprints:
-          - "e5:1d:30:37:ac:f0:26:c4:45:32:67:18:33:ec:54:dc"
+          fingerprints:
+            - "e5:1d:30:37:ac:f0:26:c4:45:32:67:18:33:ec:54:dc"
 
       - run: node ./index.js
   deploy:
@@ -30,9 +30,9 @@ jobs:
     working_directory: ~/app
     steps:
       - run:
-        name: List
-        command: |
-          ll .
+          name: List
+          command: |
+            ll .
 
 workflows:
   version: 2
