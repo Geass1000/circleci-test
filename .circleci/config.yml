@@ -24,10 +24,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - add_ssh_keys:
-          fingerprints:
-            - "e5:1d:30:37:ac:f0:26:c4:45:32:67:18:33:ec:54:dc"
-
       - run: node ./index.js
 
       - persist_to_workspace:
@@ -43,6 +39,15 @@ jobs:
           name: List
           command: |
             ls ./images
+
+      - add_ssh_keys:
+          fingerprints:
+            - "e5:1d:30:37:ac:f0:26:c4:45:32:67:18:33:ec:54:dc"
+
+      - run:
+          name: Deploy Over SSH
+          command: |
+            scp ./images/index.js $SSH_USER@$SSH_HOST:~/images
 
 workflows:
   version: 2
