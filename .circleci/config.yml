@@ -24,6 +24,11 @@ jobs:
             - "e5:1d:30:37:ac:f0:26:c4:45:32:67:18:33:ec:54:dc"
 
       - run: node ./index.js
+
+      - persist_to_workspace:
+          root: /app
+          paths:
+            - index.js
   deploy:
     machine:
         image: ubuntu-1604:201903-01
@@ -32,7 +37,7 @@ jobs:
       - run:
           name: List
           command: |
-            ll .
+            ls .
 
 workflows:
   version: 2
