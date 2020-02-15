@@ -30,15 +30,16 @@ jobs:
           root: ~/app
           paths:
             - index.js
+            - deploy-ssh.sh
   deploy:
     executor: smartnats-executor
     steps:
       - attach_workspace:
-          at: ~/app/images
+          at: ~/app
       - run:
           name: List
           command: |
-            ls ./images
+            ls .
 
       - add_ssh_keys:
           fingerprints:
