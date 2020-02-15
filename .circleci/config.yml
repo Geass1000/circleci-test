@@ -29,6 +29,7 @@ jobs:
       - persist_to_workspace:
           root: ~/app
           paths:
+            - images
             - index.js
             - deploy-ssh.sh
   deploy:
@@ -36,11 +37,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app
-
-      - run:
-          name: Create images
-          command: |
-            mkdir images
 
       - run:
           name: List
