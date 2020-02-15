@@ -47,7 +47,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            scp -r ./images/ $SSH_USER@$SSH_HOST:~/
+            bash ./deploy-ssh.sh images
 
 workflows:
   version: 2
