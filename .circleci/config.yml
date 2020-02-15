@@ -36,6 +36,12 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app
+
+      - run:
+          name: Create images
+          command: |
+            mkdir images
+
       - run:
           name: List
           command: |
