@@ -20,6 +20,8 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             nvm install v12.15.0 && nvm use v12.15.0 && nvm alias default v12.15.0
             node -v
+            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
 
       - restore_cache:
           keys:
@@ -33,9 +35,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: |
-          ./load-nvm.sh
-          node -v
+      - run: node -v
       - run: node ./index.js
 
       - run:
