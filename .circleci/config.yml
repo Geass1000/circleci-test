@@ -12,6 +12,15 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install  Node.js 12.15.0 with build in nvm tool
+          # https://www.cloudesire.com/how-to-upgrade-node-on-circleci-machine-executor/
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm install v12.15.0 && nvm use v12.15.0 && nvm alias default v12.15.0
+            node -v
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
