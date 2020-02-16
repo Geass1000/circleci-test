@@ -6,7 +6,7 @@ whereSaveStatic=$2
 if [ ! -d "${whereSaveStatic}" ]
 then
   echo "Create ${whereSaveStatic} static folder"
-  mkdir "${whereSaveStatic}"
+  mkdir -p "${whereSaveStatic}"
 fi
 
 for folderPath in ${packagesFolder}/*; do
@@ -21,7 +21,7 @@ for folderPath in ${packagesFolder}/*; do
     if [ ! -d "${whereSaveStatic}/${folderName}" ]
     then
       echo "Create ${whereSaveStatic}/${folderName} static folder for package ${folderPath}"
-      mkdir "${whereSaveStatic}/${folderName}"
+      mkdir -p "${whereSaveStatic}/${folderName}"
     fi
 
     echo "Copy ${folderPath}/dist/ to ${whereSaveStatic}/${folderName}"
