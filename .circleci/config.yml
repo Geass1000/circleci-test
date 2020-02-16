@@ -35,7 +35,7 @@ jobs:
           root: ~/app
           paths:
             - images
-            - dist/static
+            - dist
             - deploy-ssh.sh
   deploy:
     executor: smartnats-executor
@@ -46,7 +46,7 @@ jobs:
       - run:
           name: List
           command: |
-            ls .
+            ls . && ls ./dist && ls ./dist/ng-client
 
       - add_ssh_keys:
           fingerprints:
