@@ -1,9 +1,10 @@
 #!/bin/bash
 
-whereSaveImages=$1
+folderPath=$1
 
-echo "Remove ${whereSaveImages}"
-ssh $SSH_USER@$SSH_HOST "rm -r ${whereSaveImages} && mkdir ${whereSaveImages}"
+folderName=$(basename $folderPath)
+echo "Remove ${folderName} folder from remote service"
+ssh $SSH_USER@$SSH_HOST "rm -r ${folderName} && mkdir ${folderName}"
 
-echo "Copy ${whereSaveImages}"
-scp -r "./dist/${whereSaveImages}/" $SSH_USER@$SSH_HOST:~/
+echo "Copy ./dist/${folderName} folder to remote server"
+scp -r ${folderPath} $SSH_USER@$SSH_HOST:~/

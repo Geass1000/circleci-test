@@ -55,7 +55,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            bash ./deploy-ssh.sh static
+            bash ./deploy-ssh.sh ~/dist/static
 
 workflows:
   version: 2
