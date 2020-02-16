@@ -26,11 +26,16 @@ jobs:
 
       - run: node ./index.js
 
+      - run:
+          name: Save Static
+          command: |
+            bash ~/app/save-static.sh ~/app/packages ~/app/dist/static
+
       - persist_to_workspace:
           root: ~/app
           paths:
             - images
-            - index.js
+            - dist/static
             - deploy-ssh.sh
   deploy:
     executor: smartnats-executor
@@ -50,7 +55,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            bash ./deploy-ssh.sh images
+            bash ./deploy-ssh.sh ~/images images
 
 workflows:
   version: 2
