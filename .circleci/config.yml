@@ -46,7 +46,7 @@ jobs:
       - run:
           name: List
           command: |
-            ls . && ls ./dist && ls ./dist/ng-client
+            ls . && ls ./dist
 
       - add_ssh_keys:
           fingerprints:
