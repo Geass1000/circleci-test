@@ -33,7 +33,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: node -v
+      - run: |
+          ./load-nvm.sh
+          node -v
       - run: node ./index.js
 
       - run:
