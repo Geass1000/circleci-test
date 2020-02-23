@@ -6,7 +6,6 @@ executors:
       image: ubuntu-1604:201903-01
     environment:
       PROJECT_FOLDER: 'smartnuts'
-      PROJECT_REMOTE: '~/'${PROJECT_FOLDER}
       PROJECT_REMOTE_FOLDER: '~/${PROJECT_FOLDER}'
     working_directory: ~/app
 
