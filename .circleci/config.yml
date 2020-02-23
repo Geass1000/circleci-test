@@ -6,7 +6,7 @@ executors:
       image: ubuntu-1604:201903-01
     environment:
       PROJECT_FOLDER: 'smartnuts'
-      PROJECT_REMOTE_FOLDER: '~/${PROJECT_FOLDER}'
+      PROJECT_REMOTE_FOLDER: '~/smartnuts'
     working_directory: ~/app
 
 jobs:
@@ -21,13 +21,17 @@ jobs:
             echo "Build $ENV_MODE $PROJECT_REMOTE_FOLDER"
 
       - run:
-          name: SHELL Over SSH
+          name: CREATE FOLDER Over SSH
           command: |
-            echo ${PROJECT_REMOTE_FOLDER} ${PROJECT_FOLDER} ${PROJECT_REMOTE}
+            mkdir -p ~/${PROJECT_FOLDER}
       - run:
           name: SHELL Over SSH
           command: |
-            echo "Hello ${PROJECT_FOLDER}"
+            echo ~/
+      - run:
+          name: SHELL Over SSH
+          command: |
+            echo ~/${PROJECT_FOLDER}
       - run:
           name: Build Over SSH
           command: |
