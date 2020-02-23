@@ -16,6 +16,10 @@ jobs:
           name: Deploy Over SSH
           command: |
             echo "Build $ENV_MODE"
+      - run:
+          name: Build Over SSH
+          command: |
+            npm run ${ENV_MODE}:build
   deploy:
     executor: smartnats-executor
     steps:
