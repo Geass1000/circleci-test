@@ -4,6 +4,8 @@ executors:
   smartnats-executor:
     machine:
       image: ubuntu-1604:201903-01
+    environment:
+      PROJECT_REMOTE_FOLDER: '~/smartnuts'
     working_directory: ~/app
 
 jobs:
@@ -15,7 +17,12 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            echo "Build $ENV_MODE"
+            echo "Build $ENV_MODE $PROJECT_REMOTE_FOLDER"
+
+      - run:
+          name: SHELL Over SSH
+          command: |
+            echo ${PROJECT_REMOTE_FOLDER}
       - run:
           name: Build Over SSH
           command: |
