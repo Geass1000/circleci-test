@@ -31,24 +31,24 @@ workflows:
 
   production:
     jobs:
-      - build
+      - build:
           context: circleci-test-prod
           filters:
              branches:
                only:
                  - master
-      - deploy
+      - deploy:
           requires:
             - build
 
   qa1:
     jobs:
-      - build
+      - build:
           context: circleci-test-qa1
           filters:
              branches:
                only:
                  - develop
-      - deploy
+      - deploy:
           requires:
             - build
