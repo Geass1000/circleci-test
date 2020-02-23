@@ -13,68 +13,42 @@ jobs:
       - checkout
 
       - run:
-          name: Install  Node.js 12.15.0 with build in nvm tool
-          # https://www.cloudesire.com/how-to-upgrade-node-on-circleci-machine-executor/
+          name: Deploy Over SSH
           command: |
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-            nvm install v12.15.0 && nvm use v12.15.0 && nvm alias default v12.15.0
-            node -v
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: node -v
-      - run: node ./index.js
-
-      - run:
-          name: Save Static
-          command: |
-            bash ~/app/save-static.sh ~/app/packages ~/app/dist/static
-
-      - persist_to_workspace:
-          root: ~/app
-          paths:
-            - images
-            - dist
-            - deploy-ssh.sh
+            echo "Build $ENV_MODE"
   deploy:
     executor: smartnats-executor
     steps:
-      - attach_workspace:
-          at: ~/app
-
-      - run:
-          name: List
-          command: |
-            ls . && ls ./dist
-
-      - add_ssh_keys:
-          fingerprints:
-            - "e5:1d:30:37:ac:f0:26:c4:45:32:67:18:33:ec:54:dc"
+      - checkout
 
       - run:
           name: Deploy Over SSH
           command: |
-            bash ./deploy-ssh.sh ~/app/dist/static
+            echo "Deploy $ENV_MODE"
 
 workflows:
   version: 2
-  build_and_deploy:
+
+  production:
     jobs:
       - build
-      - deploy:
+          context: circleci-test-prod
+          filters:
+             branches:
+               only:
+                 - master
+      - deploy
           requires:
             - build
 
+  qa1:
+    jobs:
+      - build
+          context: circleci-test-qa1
+          filters:
+             branches:
+               only:
+                 - develop
+      - deploy
+          requires:
+            - build
