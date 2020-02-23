@@ -38,6 +38,7 @@ workflows:
                only:
                  - master
       - deploy:
+          context: circleci-test-prod
           requires:
             - build
 
@@ -50,5 +51,6 @@ workflows:
                only:
                  - develop
       - deploy:
+          context: circleci-test-prod
           requires:
             - build
